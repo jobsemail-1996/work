@@ -1,0 +1,17 @@
+    boolean checkDiag2Direction(int row, int col, char player) {
+        if (row > this.size - this.countToWin) {
+            return false;
+        }
+        if (col < this.countToWin - 1){
+            return false;
+        }
+        for (int sdvig = row; sdvig < this.countToWin; sdvig++) {
+            int rowToCheck = row + sdvig;
+            int colToCheck = col - sdvig;
+            if (this.field[rowToCheck][colToCheck] != player) {
+                return false;
+            }
+
+        }
+        return true;
+    }
