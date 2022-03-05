@@ -1,0 +1,8 @@
+package mygamex0;
+
+public class myClassGame {
+    public static void main(String[] arg){
+      XOGame game = new XOGame();
+      game.play();
+    }
+}
