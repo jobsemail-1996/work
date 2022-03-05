@@ -1,0 +1,66 @@
+package mygamex0;
+
+import javafx.scene.control.LabeledBuilder;
+
+import java.util.Scanner;
+
+public class XOGame {
+    field gameField;
+    Scanner sc = new Scanner(System.in);
+    char whoNextTurn;
+    boolean gameOver = false;
+
+    void setupNewGame() {
+        System.out.println("Will play new XO game");
+        this.gameField = new field();
+        this.gameField.initField();
+
+    }
+
+    void play() {
+        this.setupNewGame();
+        System.out.println("who will make first turn: ");
+        char first = this.sc.next().charAt(0);
+        if (first == 'X' || first == '0') {
+            this.whoNextTurn = first;
+        } else {
+            System.out.println("I recognazy only X and 0(zero). So first will be X");
+            this.whoNextTurn = 'X';
+        }
+
+        while (!gameOver) {
+            turn();
+            this.gameOver = this.gameField.isGameOver(this.whoNextTurn);
+            if (this.gameOver){
+                System.out.println(this.whoNextTurn + "  WIN!!!");
+            }
+            if (this.whoNextTurn == 'X') {
+                this.whoNextTurn = '0';
+            } else {
+                this.whoNextTurn = 'X';
+            }
+        }
+        System.out.println("Game Over");
+    }
+
+
+        void turn () {
+            System.out.println(this.whoNextTurn + ", your turn. ");
+            System.out.println("Choose row: ");
+            int rowNumber = this.sc.nextInt();
+            System.out.println("Choose column: ");
+            int colNumber = this.sc.nextInt();
+            int rowIndex = rowNumber - 1;
+            int colIndex = colNumber - 1;
+            if (this.gameField.isPlaceFree(rowIndex, colIndex)) {
+                this.gameField.setValue(rowIndex, colIndex, whoNextTurn);
+                this.gameField.printField(); //бновление поля
+            } else {
+                System.out.println("wrong number(make turn again)");
+                turn();
+            }
+        }
+
+    }
+
+
